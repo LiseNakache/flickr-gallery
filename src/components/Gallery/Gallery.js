@@ -15,8 +15,10 @@ class Gallery extends React.Component {
       images: [],
       galleryWidth: this.getGalleryWidth()
     };
+    this.deleteImage=this.deleteImage.bind(this);
   }
 
+  //width of the computer screen 
   getGalleryWidth(){
     try {
       return document.body.clientWidth;
@@ -24,6 +26,10 @@ class Gallery extends React.Component {
       return 1000;
     }
   }
+
+  //flickr.photos.search : https://www.flickr.com/services/api/flickr.photos.search.html
+  //https://www.flickr.com/services/api/flickr.photos.getSizes.html
+  //https://www.flickr.com/services/api/flickr.photos.transform.rotate.html
   getImages(tag) {
     const getImagesUrl = `services/rest/?method=flickr.photos.search&api_key=522c1f9009ca3609bcbaf08545f067ad&tags=${tag}&tag_mode=any&per_page=100&format=json&nojsoncallback=1`;
     const baseUrl = 'https://api.flickr.com/';
@@ -45,6 +51,17 @@ class Gallery extends React.Component {
       });
   }
 
+  //Delete: clicking the delete button should remove the image from the display. (easy)
+  deleteImage(id_image) {
+    console.log('the delete button works')
+    this.setState((prevState) => ({
+      images: prevState.images.id_image.filter((_, i) => i !== id_image)
+  }));
+  
+  console.log(id_image)
+  }
+
+  //Get images 
   componentDidMount() {
     this.getImages(this.props.tag);
     this.setState({
@@ -52,15 +69,19 @@ class Gallery extends React.Component {
     });
   }
 
+  //React will call this method even if the props have not changed, so make sure to compare the current and next values
+  //Check the tag
   componentWillReceiveProps(props) {
     this.getImages(props.tag);
   }
 
+  //dto = item , the item is res.photos.photo[i]
   render() {
+    //console.log(this.state.galleryWidth)
     return (
       <div className="gallery-root">
         {this.state.images.map(dto => {
-          return <Image key={'image-' + dto.id} dto={dto} galleryWidth={this.state.galleryWidth}/>;
+          return <Image key={'image-' + dto.id} dto={dto} galleryWidth={this.state.galleryWidth} deleteImage={this.deleteImage}/>;
         })}
       </div>
     );

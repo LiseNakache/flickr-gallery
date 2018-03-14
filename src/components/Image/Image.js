@@ -15,6 +15,7 @@ class Image extends React.Component {
     this.state = {
       size: 200
     };
+    this.deleteImage= this.deleteImage.bind(this)
   }
 
   calcImageSize() {
@@ -31,11 +32,19 @@ class Image extends React.Component {
     this.calcImageSize();
   }
 
+  //https://www.flickr.com/services/api/misc.urls.html
   urlFromDto(dto) {
     return `https://farm${dto.farm}.staticflickr.com/${dto.server}/${dto.id}_${dto.secret}.jpg`;
   }
 
+  deleteImage() {
+    console.log(this.props.dto.id)
+    this.props.deleteImage(this.props.dto.id)
+  }
+
+
   render() {
+    //console.log(this.props.dto);
     return (
       <div
         className="image-root"
@@ -46,8 +55,8 @@ class Image extends React.Component {
         }}
         >
         <div>
-          <FontAwesome className="image-icon" name="sync-alt" title="rotate"/>
-          <FontAwesome className="image-icon" name="trash-alt" title="delete"/>
+          <FontAwesome className="image-icon" name="sync-alt" title="rotate" />
+          <FontAwesome className="image-icon" name="trash-alt" title="delete" onClick={this.deleteImage}/>
           <FontAwesome className="image-icon" name="expand" title="expand"/>
         </div>
       </div>

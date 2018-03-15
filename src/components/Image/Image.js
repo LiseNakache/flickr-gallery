@@ -38,8 +38,8 @@ class Image extends React.Component {
   }
 
   deleteImage() {
-    console.log(this.props.dto.id)
-    this.props.deleteImage(this.props.dto.id)
+    console.log(this.props.index)
+    this.props.deleteImage(this.props.index)
   }
 
 

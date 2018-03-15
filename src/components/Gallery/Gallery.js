@@ -53,14 +53,16 @@ class Gallery extends React.Component {
 
   //Delete: clicking the delete button should remove the image from the display. (easy)
   deleteImage(id_image) {
-    console.log('the delete button works')
-    this.setState((prevState) => ({
-      images: prevState.images.id_image.filter((_, i) => i !== id_image)
-  }));
-  
-  console.log(id_image)
+    // console.log('the delete button works')
+    // console.log(this.state)
+    this.setState ({ images: this.state.images.filter((_, i) => i !== id_image)
+     }) ;
+  //    console.log(this.state)
+  // console.log(id_image)
   }
 
+
+  
   //Get images 
   componentDidMount() {
     this.getImages(this.props.tag);
@@ -80,8 +82,8 @@ class Gallery extends React.Component {
     //console.log(this.state.galleryWidth)
     return (
       <div className="gallery-root">
-        {this.state.images.map(dto => {
-          return <Image key={'image-' + dto.id} dto={dto} galleryWidth={this.state.galleryWidth} deleteImage={this.deleteImage}/>;
+        {this.state.images.map((dto,index) => {
+          return <Image key={'image-' + dto.id} dto={dto} index={index} galleryWidth={this.state.galleryWidth} deleteImage={this.deleteImage}/>;
         })}
       </div>
     );

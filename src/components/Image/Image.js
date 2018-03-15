@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import Lightbox from 'react-images';
 import FontAwesome from 'react-fontawesome';
 import './Image.scss';
 
@@ -16,7 +17,8 @@ class Image extends React.Component {
     this.state = {
       size: 200,
       rotation: 0,
-      sizeImage:[]
+      sizeImage:[],
+      lightboxIsOpen : false
     };
     this.deleteImage= this.deleteImage.bind(this)
     this.rotateImage= this.rotateImage.bind(this)
@@ -68,8 +70,9 @@ class Image extends React.Component {
       method: 'GET'
     })
     .then((response) => {
+      this.state.lightboxIsOpen=true
     //console.log(response.data.sizes.size)
-    this.setState({sizeImage:response.data.sizes.size[8].source})
+    this.setState({sizeImage:this.state.sizeImage.concat(response.data.sizes.size[8].source)})
     console.log(this.state.sizeImage)
     })
      
@@ -97,8 +100,15 @@ class Image extends React.Component {
           <FontAwesome className="image-icon" name="expand" title="expand" onClick={this.imageBigSize}/>
         </div>
       </div>
-      {/* //<img src={this.state.sizeImage}/> */}
+      {/* <Lightbox
+      images= {this.state.sizeImage}
+      isOpen={this.state.lightboxIsOpen}
+        onClickPrev={this.gotoPrevious}
+        onClickNext={this.gotoNext}
+        onClose={this.closeLightbox}
+        /> */}
       </div>
+      
     );
   }
 }

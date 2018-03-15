@@ -13,9 +13,11 @@ class Gallery extends React.Component {
     super(props);
     this.state = {
       images: [],
-      galleryWidth: this.getGalleryWidth()
+      galleryWidth: this.getGalleryWidth(),
+
     };
     this.deleteImage=this.deleteImage.bind(this);
+    // this.rotateImage=this.rotateImage.bind(this);
   }
 
   //width of the computer screen 
@@ -62,7 +64,6 @@ class Gallery extends React.Component {
   }
 
 
-  
   //Get images 
   componentDidMount() {
     this.getImages(this.props.tag);

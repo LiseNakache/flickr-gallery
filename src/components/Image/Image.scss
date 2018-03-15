@@ -6,7 +6,8 @@
   box-sizing: border-box;
   position: relative;
   border: 1px solid white;
-
+  
+ 
   > div {
     visibility: hidden;
     background: rgba(0, 0, 0, 0.7);
@@ -25,10 +26,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    
+   
   }
 
   &:hover > div {
     visibility: visible;
+  }
+
+  
+    
+
+    &:hover {
+      color: white;
+      border-color: white;
+    }
   }
 
   .image-icon {
@@ -40,11 +52,6 @@
     cursor: pointer;
     padding: 12px;
     margin: 3px;
-
-    &:hover {
-      color: white;
-      border-color: white;
-    }
-  }
+    
 }
 

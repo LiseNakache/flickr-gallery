@@ -24,8 +24,11 @@
     box-sizing: border-box;
     white-space: pre;
     display: flex;
+    //Center the alignments for all the items of the flexible <div> element:
     align-items: center;
+    //Align the flex items at the center of the container:
     justify-content: center;
+
     
    
   }
@@ -35,8 +38,6 @@
   }
 
   
-    
-
     &:hover {
       color: white;
       border-color: white;

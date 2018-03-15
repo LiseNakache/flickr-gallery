@@ -65,7 +65,8 @@ class Image extends React.Component {
           backgroundImage: `url(${this.urlFromDto(this.props.dto)})`,
           width: this.state.size + 'px',
           height: this.state.size + 'px',
-          transform: `rotate(${this.state.rotation}deg)`
+          transform: `rotate(${this.state.rotation}deg)`,
+          
         }}
         >
         <div>

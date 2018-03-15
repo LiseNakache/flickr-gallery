@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import FontAwesome from 'react-fontawesome';
 import './Image.scss';
 
@@ -14,10 +15,12 @@ class Image extends React.Component {
     this.calcImageSize = this.calcImageSize.bind(this);
     this.state = {
       size: 200,
-      rotation: 0
+      rotation: 0,
+      sizeImage:[]
     };
     this.deleteImage= this.deleteImage.bind(this)
     this.rotateImage= this.rotateImage.bind(this)
+    this.imageBigSize=this.imageBigSize.bind(this)
   }
 
   calcImageSize() {
@@ -53,27 +56,48 @@ class Image extends React.Component {
       console.log("the rotate button works")
   }
 
+
+  //click the button --> increase the size of the image 
+  //inscrease the size with size state
+  imageBigSize(dto) {
+    const getImagesUrl = `services/rest/?method=flickr.photos.getSizes&api_key=522c1f9009ca3609bcbaf08545f067ad&photo_id=${this.props.dto.id}&format=json&nojsoncallback=1`;
+    const baseUrl = 'https://api.flickr.com/';
+    axios({
+      url: getImagesUrl,
+      baseURL: baseUrl,
+      method: 'GET'
+    })
+    .then((response) => {
+    //console.log(response.data.sizes.size)
+    this.setState({sizeImage:response.data.sizes.size[8].source})
+    console.log(this.state.sizeImage)
+    })
+     
+  }
+
   //I have to rotate the image without rotationg the buttons
   // rotate only the image based on the id ?
   // 
   render() {
     //console.log(this.props.dto);
     return (
+      <div>
       <div
         className="image-root"
         style={{
           backgroundImage: `url(${this.urlFromDto(this.props.dto)})`,
-          width: this.state.size + 'px',
+           width: this.state.size + 'px',
           height: this.state.size + 'px',
-          transform: `rotate(${this.state.rotation}deg)`,
-          
+          //transform: `rotate(${this.state.rotation}deg)`,
         }}
         >
         <div>
           <FontAwesome className="image-icon" name="sync-alt" title="rotate" onClick={this.rotateImage}/>
           <FontAwesome className="image-icon" name="trash-alt" title="delete" onClick={this.deleteImage}/>
-          <FontAwesome className="image-icon" name="expand" title="expand"/>
+          <FontAwesome className="image-icon" name="expand" title="expand" onClick={this.imageBigSize}/>
         </div>
+      </div>
+      {/* //<img src={this.state.sizeImage}/> */}
       </div>
     );
   }

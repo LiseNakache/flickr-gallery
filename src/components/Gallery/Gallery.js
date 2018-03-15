@@ -40,7 +40,8 @@ class Gallery extends React.Component {
       baseURL: baseUrl,
       method: 'GET'
     })
-      .then(res => res.data)
+      .then(res => (res.data))
+      // console.log(res.data))
       .then(res => {
         if (
           res &&
@@ -80,7 +81,6 @@ class Gallery extends React.Component {
 
   //dto = item , the item is res.photos.photo[i]
   render() {
-    //console.log(this.state.galleryWidth)
     return (
       <div className="gallery-root">
         {this.state.images.map((dto,index) => {

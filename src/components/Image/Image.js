@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import Lightbox from 'react-images';
+import ToolTip from 'react-portal-tooltip';
 import FontAwesome from 'react-fontawesome';
 import './Image.scss';
 
@@ -18,11 +18,13 @@ class Image extends React.Component {
       size: 200,
       rotation: 0,
       sizeImage:[],
-      lightboxIsOpen : false
+      isTooltipActive: false,
     };
     this.deleteImage= this.deleteImage.bind(this)
     this.rotateImage= this.rotateImage.bind(this)
     this.imageBigSize=this.imageBigSize.bind(this)
+    this.showTooltip = this.showTooltip.bind(this)
+    this.hideTooltip = this.hideTooltip.bind(this)
   }
 
   calcImageSize() {
@@ -74,43 +76,69 @@ class Image extends React.Component {
     //console.log(response.data.sizes.size)
     this.setState({sizeImage:this.state.sizeImage.concat(response.data.sizes.size[8].source)})
     console.log(this.state.sizeImage)
+    //return this.showTooltip;
     })
      
   }
 
-  //I have to rotate the image without rotationg the buttons
-  // rotate only the image based on the id ?
-  // 
+  showTooltip() {
+    this.setState({isTooltipActive: true})
+  }
+  hideTooltip() {
+    this.setState({isTooltipActive: false})
+  }
+
+
+
   render() {
-    //console.log(this.props.dto);
+    let style = {
+      style: {
+        padding: 20,
+        boxShadow: '5px 5px 3px rgba(0,0,0,.5)',
+      },
+      arrowStyle: {
+      }
+    }
+    console.log(this.props.dto);
     return (
       <div>
       <div
         className="image-root"
+        id="image"
         style={{
           backgroundImage: `url(${this.urlFromDto(this.props.dto)})`,
-           width: this.state.size + 'px',
+          width: this.state.size + 'px',
           height: this.state.size + 'px',
-          //transform: `rotate(${this.state.rotation}deg)`,
+          transform: `rotate(${this.state.rotation}deg)`,
         }}
-        >
+        ></div>
         <div>
           <FontAwesome className="image-icon" name="sync-alt" title="rotate" onClick={this.rotateImage}/>
           <FontAwesome className="image-icon" name="trash-alt" title="delete" onClick={this.deleteImage}/>
-          <FontAwesome className="image-icon" name="expand" title="expand" onClick={this.imageBigSize}/>
+          <FontAwesome className="image-icon" name="expand" title="expand" onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip}/>
         </div>
+        <div>
+        {/* <p id="text" onMouseEnter={this.showTooltip.bind(this)} onMouseLeave={this.hideTooltip.bind(this)}>This is a cool component</p> */}
+        <ToolTip  active={this.state.isTooltipActive} position="right" arrow="center"  parent="#image" tooltipTimeout={200} style={style} >
+                    <div>
+                        <img src={this.urlFromDto(this.props.dto)}/>
+                        <p className="title-image">TITLE: <br/> {this.props.dto.title}</p>
+                    </div>
+                </ToolTip>
+                </div>
       </div>
-      {/* <Lightbox
-      images= {this.state.sizeImage}
-      isOpen={this.state.lightboxIsOpen}
-        onClickPrev={this.gotoPrevious}
-        onClickNext={this.gotoNext}
-        onClose={this.closeLightbox}
-        /> */}
-      </div>
-      
+      //</div>
+      //onClick={this.imageBigSize}
     );
   }
 }
 
+{/* <div ref={(element) => { this.element = element }} onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip}>
+    Hover me!!!
+</div>
+<ToolTip active={this.state.isTooltipActive} position="top" arrow="center" parent={this.element}>
+    <div>
+        <p>This is the content of the tooltip</p>
+    </div>
+</ToolTip> */}
 export default Image;

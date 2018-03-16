@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+//import InfiniteScroll from 'react-infinite-scroller';
 import Image from '../Image';
 import './Gallery.scss';
+// var InfiniteScroll = require('react-infinite-scroll-component');
 
 class Gallery extends React.Component {
   static propTypes = {
@@ -33,7 +35,7 @@ class Gallery extends React.Component {
   //https://www.flickr.com/services/api/flickr.photos.getSizes.html
   //https://www.flickr.com/services/api/flickr.photos.transform.rotate.html
   getImages(tag) {
-    const getImagesUrl = `services/rest/?method=flickr.photos.search&api_key=522c1f9009ca3609bcbaf08545f067ad&tags=${tag}&tag_mode=any&per_page=100&format=json&nojsoncallback=1`;
+    const getImagesUrl = `services/rest/?method=flickr.photos.search&api_key=522c1f9009ca3609bcbaf08545f067ad&tags=${tag}&tag_mode=any&per_page=500&format=json&nojsoncallback=1`;
     const baseUrl = 'https://api.flickr.com/';
     axios({
       url: getImagesUrl,
@@ -83,9 +85,10 @@ class Gallery extends React.Component {
   render() {
     return (
       <div className="gallery-root">
-        {this.state.images.map((dto,index) => {
+       {this.state.images.map((dto,index) => {
           return <Image key={'image-' + dto.id} dto={dto} index={index} galleryWidth={this.state.galleryWidth} deleteImage={this.deleteImage}/>;
         })}
+        
       </div>
     );
   }

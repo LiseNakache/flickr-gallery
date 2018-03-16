@@ -22,19 +22,19 @@ class Image extends React.Component {
     };
     this.deleteImage= this.deleteImage.bind(this)
     this.rotateImage= this.rotateImage.bind(this)
-    this.imageBigSize=this.imageBigSize.bind(this)
+    //this.imageBigSize=this.imageBigSize.bind(this)
     this.showTooltip = this.showTooltip.bind(this)
     this.hideTooltip = this.hideTooltip.bind(this)
   }
 
   calcImageSize() {
+    console.log(this.props.galleryWidth)
     const {galleryWidth} = this.props;
     const targetSize = 200;
     const imagesPerRow = Math.round(galleryWidth / targetSize);
     const size = (galleryWidth / imagesPerRow);
-    this.setState({
-      size
-    });
+    this.setState({size});
+    
   }
 
   componentDidMount() {
@@ -51,7 +51,7 @@ class Image extends React.Component {
     this.props.deleteImage(this.props.index)
   }
 
-  //implement the id image on the rotateImage function. 
+  
   rotateImage() {
     let newRotation = this.state.rotation + 90;
       if(newRotation >= 360) {newRotation =- 360;}
@@ -63,24 +63,25 @@ class Image extends React.Component {
 
   //click the button --> increase the size of the image 
   //inscrease the size with size state
-  imageBigSize(dto) {
-    const getImagesUrl = `services/rest/?method=flickr.photos.getSizes&api_key=522c1f9009ca3609bcbaf08545f067ad&photo_id=${this.props.dto.id}&format=json&nojsoncallback=1`;
-    const baseUrl = 'https://api.flickr.com/';
-    axios({
-      url: getImagesUrl,
-      baseURL: baseUrl,
-      method: 'GET'
-    })
-    .then((response) => {
-      this.state.lightboxIsOpen=true
-    //console.log(response.data.sizes.size)
-    this.setState({sizeImage:this.state.sizeImage.concat(response.data.sizes.size[8].source)})
-    console.log(this.state.sizeImage)
-    //return this.showTooltip;
-    })
+  // imageBigSize(dto) {
+  //   const getImagesUrl = `services/rest/?method=flickr.photos.getSizes&api_key=522c1f9009ca3609bcbaf08545f067ad&photo_id=${this.props.dto.id}&format=json&nojsoncallback=1`;
+  //   const baseUrl = 'https://api.flickr.com/';
+  //   axios({
+  //     url: getImagesUrl,
+  //     baseURL: baseUrl,
+  //     method: 'GET'
+  //   })
+  //   .then((response) => {
+  //     this.state.lightboxIsOpen=true
+  //   //console.log(response.data.sizes.size)
+  //   this.setState({sizeImage:this.state.sizeImage.concat(response.data.sizes.size[8].source)})
+  //   console.log(this.state.sizeImage)
+  //   //return this.showTooltip;
+  //   })
      
-  }
+  // }
 
+  //Function for ToolTip
   showTooltip() {
     this.setState({isTooltipActive: true})
   }
@@ -93,15 +94,15 @@ class Image extends React.Component {
   render() {
     let style = {
       style: {
-        padding: 20,
         boxShadow: '5px 5px 3px rgba(0,0,0,.5)',
+        //width: '100%'
       },
       arrowStyle: {
       }
     }
-    console.log(this.props.dto);
+    // console.log(this.props.dto);
     return (
-      <div>
+      <div className="global-image">
       <div
         className="image-root"
         id="image"
@@ -118,17 +119,17 @@ class Image extends React.Component {
           <FontAwesome className="image-icon" name="expand" title="expand" onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip}/>
         </div>
         <div>
-        {/* <p id="text" onMouseEnter={this.showTooltip.bind(this)} onMouseLeave={this.hideTooltip.bind(this)}>This is a cool component</p> */}
-        <ToolTip  active={this.state.isTooltipActive} position="right" arrow="center"  parent="#image" tooltipTimeout={200} style={style} >
+      
+        <ToolTip  active={this.state.isTooltipActive} position="right" arrow="center"  parent="#image" tooltipTimeout={200} style={style} useHover="true">
                     <div>
-                        <img src={this.urlFromDto(this.props.dto)}/>
-                        <p className="title-image">TITLE: <br/> {this.props.dto.title}</p>
+                        <img src={this.urlFromDto(this.props.dto)}/> 
+                        <p className="title-image" 
+                        /* style={{width: this.state.size + 'px',}} */
+                        >TITLE: <br/> {this.props.dto.title}</p>
                     </div>
                 </ToolTip>
                 </div>
       </div>
-      //</div>
-      //onClick={this.imageBigSize}
     );
   }
 }

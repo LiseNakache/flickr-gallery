@@ -106,13 +106,15 @@ class Image extends React.Component {
       <div
         className="image-root"
         id="image"
+        ref={(element) => { this.element = this.props.index }}
         style={{
           backgroundImage: `url(${this.urlFromDto(this.props.dto)})`,
           width: this.state.size + 'px',
           height: this.state.size + 'px',
           transform: `rotate(${this.state.rotation}deg)`,
         }}
-        ></div>
+        >
+        </div>
         <div>
           <FontAwesome className="image-icon" name="sync-alt" title="rotate" onClick={this.rotateImage}/>
           <FontAwesome className="image-icon" name="trash-alt" title="delete" onClick={this.deleteImage}/>
@@ -120,7 +122,7 @@ class Image extends React.Component {
         </div>
         <div>
       
-        <ToolTip  active={this.state.isTooltipActive} position="right" arrow="center"  parent="#image" tooltipTimeout={200} style={style} useHover="true">
+        <ToolTip  active={this.state.isTooltipActive} position="right" arrow="center"  parent={this.element} tooltipTimeout={200} style={style} useHover="true">
                     <div>
                         <img src={this.urlFromDto(this.props.dto)}/> 
                         <p className="title-image" 

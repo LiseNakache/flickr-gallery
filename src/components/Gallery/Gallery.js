@@ -84,7 +84,7 @@ class Gallery extends React.Component {
   //dto = item , the item is res.photos.photo[i]
   render() {
     return (
-      <div className="gallery-root">
+      <div id="gallery" className="gallery-root">
        {this.state.images.map((dto,index) => {
           return <Image key={'image-' + dto.id} dto={dto} index={index} galleryWidth={this.state.galleryWidth} deleteImage={this.deleteImage}/>;
         })}

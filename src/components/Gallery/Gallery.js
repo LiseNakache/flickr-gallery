@@ -35,7 +35,7 @@ class Gallery extends React.Component {
   //https://www.flickr.com/services/api/flickr.photos.getSizes.html
   //https://www.flickr.com/services/api/flickr.photos.transform.rotate.html
   getImages(tag) {
-    const getImagesUrl = `services/rest/?method=flickr.photos.search&api_key=522c1f9009ca3609bcbaf08545f067ad&tags=${tag}&tag_mode=any&per_page=500&format=json&nojsoncallback=1`;
+    const getImagesUrl = `services/rest/?method=flickr.photos.search&api_key=522c1f9009ca3609bcbaf08545f067ad&tags=${tag}&tag_mode=any&per_page=3&format=json&nojsoncallback=1`;
     const baseUrl = 'https://api.flickr.com/';
     axios({
       url: getImagesUrl,
@@ -62,7 +62,7 @@ class Gallery extends React.Component {
     // console.log(this.state)
     this.setState ({ images: this.state.images.filter((_, i) => i !== id_image)
      }) ;
-  //    console.log(this.state)
+    //  console.log(this.state)
   // console.log(id_image)
   }
 
@@ -86,7 +86,7 @@ class Gallery extends React.Component {
     return (
       <div id="gallery" className="gallery-root">
        {this.state.images.map((dto,index) => {
-          return <Image key={'image-' + dto.id} dto={dto} index={index} galleryWidth={this.state.galleryWidth} deleteImage={this.deleteImage}/>;
+          return <Image key={'image-' + dto.id} dto={dto} index={index} galleryWidth={this.state.galleryWidth} deleteImage={this.deleteImage} image={this.state.images}/>;
         })}
         
       </div>

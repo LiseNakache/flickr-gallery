@@ -95,7 +95,7 @@ class Image extends React.Component {
     let style = {
       style: {
         boxShadow: '5px 5px 3px rgba(0,0,0,.5)',
-        //width: '100%'
+        // width: 2.5*this.state.size + 'px'
       },
       arrowStyle: {
       }
@@ -106,7 +106,7 @@ class Image extends React.Component {
       <div
         className="image-root"
         id="image"
-        ref={(element) => { this.element = this.props.index }}
+        /* ref={(element) => { this.element = this.props.index }} */
         style={{
           backgroundImage: `url(${this.urlFromDto(this.props.dto)})`,
           width: this.state.size + 'px',
@@ -122,9 +122,9 @@ class Image extends React.Component {
         </div>
         <div>
       
-        <ToolTip  active={this.state.isTooltipActive} position="right" arrow="center"  parent={this.element} tooltipTimeout={200} style={style} useHover="true">
+        <ToolTip  active={this.state.isTooltipActive} position="right" arrow="center"  parent='#image' tooltipTimeout={200} style={style} useHover="true">
                     <div>
-                        <img src={this.urlFromDto(this.props.dto)}/> 
+                        <img src={this.urlFromDto(this.props.dto)} style={{width:'100%'}}/> 
                         <p className="title-image" 
                         /* style={{width: this.state.size + 'px',}} */
                         >TITLE: <br/> {this.props.dto.title}</p>
@@ -135,6 +135,7 @@ class Image extends React.Component {
     );
   }
 }
+//parent={this.element}
 
 {/* <div ref={(element) => { this.element = element }} onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip}>
     Hover me!!!

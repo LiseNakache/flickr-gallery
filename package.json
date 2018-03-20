@@ -22,7 +22,7 @@
   },
   "repository": "",
   "keywords": [],
-  "author": "Your name here",
+  "author": "Lise Nakache",
   "devDependencies": {
     "babel-core": "^6.0.0",
     "babel-eslint": "^6.0.0",
@@ -80,7 +80,10 @@
     "normalize.css": "^4.0.0",
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
-    "react-fontawesome": "^1.6.1"
+    "react-fontawesome": "^1.6.1",
+    "react-images": "^0.5.17",
+    "react-infinite-scroller": "^1.1.3",
+    "react-portal-tooltip": "^1.3.0"
   },
   "gh-pages-deploy": {
     "staticpath": "dist",

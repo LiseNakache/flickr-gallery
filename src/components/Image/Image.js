@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-// import ToolTip from 'react-portal-tooltip';
 import Lightbox from 'react-image-lightbox';
 import FontAwesome from 'react-fontawesome';
 import './Image.scss';
@@ -17,19 +16,15 @@ class Image extends React.Component {
     this.state = {
       size: 200,
       rotation: 0,
-      photoIndex: (this.props.index),
-      isOpen: false,
       sizeImage:[1],
-      images:[]
-      // isTooltipActive: false,
     };
     this.calcImageSize = this.calcImageSize.bind(this);
     this.deleteImage= this.deleteImage.bind(this)
     this.rotateImage= this.rotateImage.bind(this)
-    this.addImage=this.addImage.bind(this)
+    this.openLightBox=this.openLightBox.bind(this)
+    // this.addImage=this.addImage.bind(this)
     // this.imageBigSize=this.imageBigSize.bind(this)
-    // this.showTooltip = this.showTooltip.bind(this)
-    // this.hideTooltip = this.hideTooltip.bind(this)
+    
   }
 
   calcImageSize() {
@@ -45,30 +40,29 @@ class Image extends React.Component {
   componentDidMount() {
     this.calcImageSize();
     // this.imageBigSize();
-    this.addImage(this.props.dto)
+    // this.addImage(this.props.dto)
   }
 
   //https://www.flickr.com/services/api/misc.urls.html
-  urlFromDto(dto) {
-    return `https://farm${dto.farm}.staticflickr.com/${dto.server}/${dto.id}_${dto.secret}.jpg`;
-  }
+  // urlFromDto(dto) {
+  //   return `https://farm${dto.farm}.staticflickr.com/${dto.server}/${dto.id}_${dto.secret}.jpg`;
+  // }
 
-  addImage(dto){
-    var imageUrl = `https://farm${dto.farm}.staticflickr.com/${dto.server}/${dto.id}_${dto.secret}.jpg`
-    // console.log(this.state.images.concat([imageUrl]))
-    // this.setState({images : this.state.images.concat(12) },()=> console.log(this.state.images))
-    this.setState(prevState => ({
-      images: [...prevState.images, imageUrl]
-    }))
+  // addImage(dto){
+  //   var imageUrl = `https://farm${dto.farm}.staticflickr.com/${dto.server}/${dto.id}_${dto.secret}.jpg`
+  //   console.log(this.state.images.concat([imageUrl]))
+  //   this.setState({images : this.state.images.concat(imageUrl) },()=> console.log(this.state.images))
+  //    this.setState(prevState => ({
+  //     images : prevState.images.concat(imageUrl)
+  //    }))
     
 
-    // this.setState((prevState) => {
-    //   return {images: prevState.images.concat(12)};
-    // },()=> console.log(this.state.images));
-  }
+  //   // this.setState((prevState) => {
+  //   //   return {images: prevState.images.concat(12)};
+  //   // },()=> console.log(this.state.images));
+  // }
 
   deleteImage() {
-    // console.log(this.props.index)
     this.props.deleteImage(this.props.index)
   }
 
@@ -100,40 +94,23 @@ class Image extends React.Component {
      
   // }
 
-  //Function for ToolTip
-  // showTooltip() {
-  //   this.setState({isTooltipActive: true})
-  // }
-  // hideTooltip() {
-  //   this.setState({isTooltipActive: false})
-  // }
-
-
+  openLightBox(){
+    this.props.openLightBox(this.props.index)
+  }
 
   render() {
-    console.log('the state' + this.state.sizeImage)
-    const { photoIndex, isOpen } = this.state;
-    console.log(this.state.images)
-    
-    // console.log("the array images is  " + this.state.images)
-    // let style = {
-    //   style: {
-    //     boxShadow: '5px 5px 3px rgba(0,0,0,.5)',
-    //   },
-    //   arrowStyle: {
-    //   }
-    // }
-    // console.log(this.props.dto);
+
     return (
 
       <div
         className="image-root"
         id="image"
         style={{
-          backgroundImage: `url(${this.urlFromDto(this.props.dto)})`,
+          backgroundImage: `url(${this.props.url})`,
           width: this.state.size + 'px',
           height: this.state.size + 'px',
           transform: `rotate(${this.state.rotation}deg)`,
+          
         }}
         >
      
@@ -142,49 +119,13 @@ class Image extends React.Component {
         }}>
           <FontAwesome className="image-icon" name="sync-alt" title="rotate" onClick={this.rotateImage}/>
           <FontAwesome className="image-icon" name="trash-alt" title="delete" onClick={this.deleteImage}/>
-          <FontAwesome className="image-icon" name="expand" title="expand" onClick={() => this.setState({ isOpen: true })} />
+          <FontAwesome className="image-icon" name="expand" title="expand" onClick={this.openLightBox} />
         </div>
 
-          {isOpen && (
-          <Lightbox
-            mainSrc={this.urlFromDto(this.props.dto)}
-            /* nextSrc={this.props.image[(photoIndex + 1) % this.props.image.length]} */
-            /* prevSrc={this.props.image[(photoIndex + this.props.image.length - 1) % this.props.image.length]} */
-            /* onCloseRequest={() => this.setState({ isOpen: false })} */
-            /* onMovePrevRequest={() =>
-              this.setState({
-                photoIndex: (photoIndex + images.length - 1) % images.length,
-              })
-            } */
-            /* onMoveNextRequest={() =>
-              this.setState({
-                photoIndex: (photoIndex + 1) % images.length,
-              })
-            } */
-          />
-        )}
       </div>
     );
   }
 }
 
-{/* <div> */}
-      
-        {/* <ToolTip  active={this.state.isTooltipActive} position="right" arrow="center"  parent='#image' tooltipTimeout={200} style={style} useHover="true">
-                    <div>
-                        <img src={this.urlFromDto(this.props.dto)} style={{width:'100%'}}/> 
-                        <p className="title-image">TITLE: <br/> {this.props.dto.title}</p>
-                    </div>
-                </ToolTip> */}
-                {/* </div> */}
-//parent={this.element}
 
-{/* <div ref={(element) => { this.element = element }} onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip}>
-    Hover me!!!
-</div>
-<ToolTip active={this.state.isTooltipActive} position="top" arrow="center" parent={this.element}>
-    <div>
-        <p>This is the content of the tooltip</p>
-    </div>
-</ToolTip> */}
 export default Image;

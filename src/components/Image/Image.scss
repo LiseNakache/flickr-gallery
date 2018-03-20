@@ -1,6 +1,3 @@
-.global-image{
-  display: inline-block
-}
 
 .image-root {
   background-size: cover;
@@ -10,8 +7,8 @@
   box-sizing: border-box;
   position: relative;
   border: 1px solid white;
-  //margin: 20px;
- 
+  // max-width: 100%;
+  // height: auto;
 
   > div {
     visibility: hidden;
@@ -44,14 +41,6 @@
     visibility: visible;
   }
 
-  
-    &:hover {
-      color: white;
-      border-color: white;
-    }
-  }
-
-
   .image-icon {
     font-size: 20px;
     vertical-align: middle;
@@ -62,15 +51,24 @@
     padding: 12px;
     margin: 3px;
     
-} 
-
-.title-image{
-  text-align: center;
-  font-family: 'Lato', sans-serif;
-  font-family: 'PT Sans', sans-serif;
-  font-weight: bold;
-  font-size : 18px;
-  padding : 10px,
-  // width: 50%;
-  // height: 50%;
 }
+
+    &:hover {
+      color: white;
+      border-color: white;
+    }
+  }
+
+
+ 
+
+// .title-image{
+//   text-align: center;
+//   font-family: 'Lato', sans-serif;
+//   font-family: 'PT Sans', sans-serif;
+//   font-weight: bold;
+//   font-size : 18px;
+//   padding : 10px,
+//   // width: 50%;
+//   // height: 50%;
+// }

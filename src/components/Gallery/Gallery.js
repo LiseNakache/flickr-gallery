@@ -107,22 +107,19 @@ class Gallery extends React.Component {
             {isOpen && (
               <Lightbox
               mainSrc={this.urlFromDto(this.state.images[this.state.chosenItem])}
-              /* nextSrc={this.urlFromDto(this.state.images[[ (this.state.chosenItem + 1) % this.state.images.length]])} */
-              /* prevSrc={this.urlFromDto(this.state.images[[ (this.state.chosenItem + (this.state.images.length - 1)) % this.state.images.length]])} */
-              /* prevSrc={this.urlFromDto[(this.state.images[this.state.chosenItem + this.state.images.length-1]) % this.state.images.length]} */
-              /* nextSrc={images[(photoIndex + 1) % images.length]} */
-              /* prevSrc={images[(photoIndex + images.length - 1) % images.length]} */
+              nextSrc={this.urlFromDto(this.state.images[[ (this.state.chosenItem + 1) % this.state.images.length]])}
+              prevSrc={this.urlFromDto(this.state.images[[ (this.state.chosenItem + (this.state.images.length - 1)) % this.state.images.length]])}
               onCloseRequest={() => this.setState({ isOpen: false })}
-              /* onMovePrevRequest={() =>
+              onMovePrevRequest={() =>
                 this.setState({
-                  photoIndex: (photoIndex + images.length - 1) % images.length,
+                  chosenItem: (this.state.chosenItem + this.state.images.length - 1) % this.state.images.length,
                 })
-              } */
-              /* onMoveNextRequest={() =>
+              }
+              onMoveNextRequest={() =>
                 this.setState({
-                  chosenItem: (chosenItem + 1) % this.state.images.length,
-                })
-              } */
+                   chosenItem: (this.state.chosenItem + 1) % this.state.images.length
+                })}
+                imageTitle={this.state.images[this.state.chosenItem].title}
               />
             )}
             {/* this.urlFromDto(this.state.images[(this.state.chosenItem+1)%this.state.images.length]) */}

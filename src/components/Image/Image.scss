@@ -7,8 +7,6 @@
   box-sizing: border-box;
   position: relative;
   border: 1px solid white;
-  // max-width: 100%;
-  // height: auto;
 
   > div {
     visibility: hidden;
@@ -31,8 +29,6 @@
     //Align the flex items at the center of the container:
     justify-content: center;
 
-    
-   
   }
 
    
@@ -59,16 +55,3 @@
     }
   }
 
-
- 
-
-// .title-image{
-//   text-align: center;
-//   font-family: 'Lato', sans-serif;
-//   font-family: 'PT Sans', sans-serif;
-//   font-weight: bold;
-//   font-size : 18px;
-//   padding : 10px,
-//   // width: 50%;
-//   // height: 50%;
-// }

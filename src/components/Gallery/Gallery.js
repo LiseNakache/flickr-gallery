@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-//import InfiniteScroll from 'react-infinite-scroller';
 import Image from '../Image';
 import Lightbox from 'react-image-lightbox';
 import './Gallery.scss';
-// var InfiniteScroll = require('react-infinite-scroll-component');
+
 
 class Gallery extends React.Component {
   static propTypes = {
@@ -18,12 +17,13 @@ class Gallery extends React.Component {
       images: [],
       galleryWidth: this.getGalleryWidth(),
       chosenItem:0,
-      // photoIndex: (this.props.index),
       isOpen: false,
+      largeImage:[]
     };
     this.deleteImage = this.deleteImage.bind(this);
     this.urlFromDto = this.urlFromDto.bind(this);
     this.openLightBox = this.openLightBox.bind(this);
+    // this.imageBigSize=this.imageBigSize.bind(this)
   }
 
   //width of the computer screen 
@@ -39,7 +39,7 @@ class Gallery extends React.Component {
   //https://www.flickr.com/services/api/flickr.photos.getSizes.html
   //https://www.flickr.com/services/api/flickr.photos.transform.rotate.html
   getImages(tag) {
-    const getImagesUrl = `services/rest/?method=flickr.photos.search&api_key=522c1f9009ca3609bcbaf08545f067ad&tags=${tag}&tag_mode=any&per_page=3&format=json&nojsoncallback=1`;
+    const getImagesUrl = `services/rest/?method=flickr.photos.search&api_key=522c1f9009ca3609bcbaf08545f067ad&tags=${tag}&tag_mode=any&per_page=100&format=json&nojsoncallback=1`;
     const baseUrl = 'https://api.flickr.com/';
     axios({
       url: getImagesUrl,
@@ -61,7 +61,27 @@ class Gallery extends React.Component {
       });
   }
 
-  //Delete: clicking the delete button should remove the image from the display. (easy)
+    
+//Function that renders the large size of the image (size : _b) 
+//To use if we want the lightbox to show a large image of the normal image
+  // imageBigSize() {
+  //   const getImagesUrl = `services/rest/?method=flickr.photos.getSizes&api_key=522c1f9009ca3609bcbaf08545f067ad&photo_id=${this.props.dto.id}&format=json&nojsoncallback=1`;
+  //   const baseUrl = 'https://api.flickr.com/';
+  //   axios({
+  //     url: getImagesUrl,
+  //     baseURL: baseUrl,
+  //     method: 'GET'
+  //   })
+  //   .then((response) => {
+  //   this.setState({largeImage:this.state.largeImage.concat(response.data.sizes.size[8].source)})
+  //   })
+     
+  // }
+
+
+
+
+  //Delete: clicking the delete button should remove the image from the display.
   deleteImage(id_image) {
     this.setState({
       images: this.state.images.filter((_, i) => i !== id_image)
@@ -78,8 +98,7 @@ class Gallery extends React.Component {
     });
   }
 
-  //React will call this method even if the props have not changed, so make sure to compare the current and next values
-  //Check the tag
+  //compare the current and next tag
   componentWillReceiveProps(props) {
     this.getImages(props.tag);
   }
@@ -93,10 +112,8 @@ class Gallery extends React.Component {
     this.setState({ isOpen: true })
   }
 
-  //dto = item , the item is res.photos.photo[i]
+  //dto = item in the image array
   render() {
-    // console.log("id item " + this.state.images[0])
-    // console.log(":" + this.urlFromDto(this.state.images[[ 2 % this.state.images.length]] ))
     const { photoIndex, isOpen } = this.state;
     return (
       <div id="gallery" className="gallery-root">
@@ -120,9 +137,11 @@ class Gallery extends React.Component {
                    chosenItem: (this.state.chosenItem + 1) % this.state.images.length
                 })}
                 imageTitle={this.state.images[this.state.chosenItem].title}
+                zoomInLabel='aria-label'
+                zoomOutLabel='aria-label'
               />
             )}
-            {/* this.urlFromDto(this.state.images[(this.state.chosenItem+1)%this.state.images.length]) */}
+           
       </div>
     );
   }

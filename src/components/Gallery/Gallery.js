@@ -86,7 +86,6 @@ class Gallery extends React.Component {
     this.setState({
       images: this.state.images.filter((_, i) => i !== id_image)
     });
-    console.log("the delete " + this.state.images)
   }
 
 

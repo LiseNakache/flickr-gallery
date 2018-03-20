@@ -44,6 +44,7 @@ class Image extends React.Component {
     let newRotation = this.state.rotation + 90;
       if(newRotation >= 360) {newRotation = 0;}
       this.setState({rotation: newRotation,})
+
   }
 
   //link the index of the image with the lightBox(in the Gallery)

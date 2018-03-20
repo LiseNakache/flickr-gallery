@@ -1,4 +1,6 @@
 
+
+
 .image-root {
   background-size: cover;
   background-position: center center;
@@ -53,5 +55,42 @@
       color: white;
       border-color: white;
     }
+    
   }
 
+  @media only screen 
+  and (min-width : 1024px) 
+  and (max-width : 1220px) {
+  .image-root {
+      width: 205px !important;
+      height: 205px !important;
+      }
+  }
+
+
+  @media only screen 
+  and (min-width : 768px) 
+  and (max-width : 1024px) {
+  .image-root {
+      width: 215px !important;
+      height: 215px !important;
+      }
+  }
+
+  @media only screen 
+  and (min-width : 425px) 
+  and (max-width : 768px) {
+  .image-root {
+      width: 225px !important;
+      height: 225px !important;
+      }
+  }
+
+  @media only screen 
+  and (min-width : 320px) 
+  and (max-width : 425px) {
+  .image-root {
+      width: 235px !important;
+      height: 235px !important;
+      }
+  }

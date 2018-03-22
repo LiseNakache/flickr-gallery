@@ -113,11 +113,12 @@ class Gallery extends React.Component {
 
   //dto = item in the image array
   render() {
+    console.log(this.state.images)
     const { photoIndex, isOpen } = this.state;
     return (
       <div id="gallery" className="gallery-root">
         {this.state.images.map((dto, index) => {
-          return <Image key={'image-' + dto.id} url={this.urlFromDto(dto)} index={index} galleryWidth={this.state.galleryWidth} deleteImage={this.deleteImage} image={this.state.images} openLightBox={this.openLightBox} />;
+          return <Image key={'image-' + dto.id} url={this.urlFromDto(dto)} index={index} galleryWidth={this.state.galleryWidth} deleteImage={this.deleteImage} openLightBox={this.openLightBox} />;
         })}
 
             {isOpen && (
